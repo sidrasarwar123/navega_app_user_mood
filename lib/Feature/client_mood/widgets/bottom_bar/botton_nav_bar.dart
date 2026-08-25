@@ -39,30 +39,37 @@ class HomeBottomNavBar extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: [
           // Flat, full-width bar with a curved notch cut into the top
-          Positioned(
-            top: 20,
-            left: 0,
-            right: 0,
-            child: ClipPath(
-              clipper: _NotchClipper(),
-              child: Container(
-                height: _barHeight,
-                color: AppColors.primaryBlue,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: _buildNavItem(0)),
-                    Expanded(child: _buildNavItem(1)),
-                    const SizedBox(width: 64), // space for center circle
-                    Expanded(child: _buildNavItem(2)),
-                    Expanded(child: _buildNavItem(3)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
+         Positioned(
+  top: 20,
+  left: 0,
+  right: 0,
+  child: PhysicalShape(
+    clipper: _NotchClipper(
+      archHeight: 30, // kitna upar (+) button ke around curve jayega
+      archWidth: 40,  // arch ki width
+      cornerRadius: 0,
+    ),
+    color: AppColors.primaryBlue,
+    elevation: 0,
+    child: SizedBox(
+      height: _barHeight,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: _buildNavItem(0)),
+            Expanded(child: _buildNavItem(1)),
+            const SizedBox(width: 64),
+            Expanded(child: _buildNavItem(2)),
+            Expanded(child: _buildNavItem(3)),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
           // Raised circular "+" button sitting inside the notch
           Positioned(
             top: 0,
@@ -144,41 +151,58 @@ class HomeBottomNavBar extends StatelessWidget {
 
 
 class _NotchClipper extends CustomClipper<Path> {
+  final double archHeight;
+  final double archWidth;
+  final double cornerRadius;
+
+  _NotchClipper({
+    required this.archHeight,
+    required this.archWidth,
+    required this.cornerRadius,
+  });
+
+ @override
+Path getClip(Size size) {
+  final cx = size.width / 2;
+  final r = cornerRadius;
+  final ah = archHeight;
+  final aw = archWidth;
+
+  final path = Path();
+
+  path.moveTo(0, size.height);
+  path.lineTo(0, r);
+  path.quadraticBezierTo(0, 0, r, 0);
+
+  path.lineTo(cx - aw, 0);
+
+  // Compute a true circle passing through (cx-aw,0), (cx,-ah), (cx+aw,0)
+  // so the bump is a real round arc — never pointed.
+  final k = (aw * aw - ah * ah) / (2 * ah);
+  final radius = (k + ah).abs();
+
+  path.arcToPoint(
+    Offset(cx, -ah),
+    radius: Radius.circular(radius),
+    clockwise: true,
+  );
+  path.arcToPoint(
+    Offset(cx + aw, 0),
+    radius: Radius.circular(radius),
+    clockwise: true,
+  );
+
+  path.lineTo(size.width - r, 0);
+  path.quadraticBezierTo(size.width, 0, size.width, r);
+  path.lineTo(size.width, size.height);
+  path.close();
+
+  return path;
+}
+
   @override
-  Path getClip(Size size) {
-    final double w = size.width;
-    final double h = size.height;
-    final double centerX = w / 2;
-    const double notchRadius = 38;
-
-    final Path path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(centerX - notchRadius - 18, 0);
-
-    // Curve down into the notch
-    path.quadraticBezierTo(
-      centerX - notchRadius, 0,
-      centerX - notchRadius, 20,
-    );
-    path.arcToPoint(
-      Offset(centerX + notchRadius, 20),
-      radius: const Radius.circular(notchRadius),
-      clockwise: false,
-    );
-    // Curve back up out of the notch
-    path.quadraticBezierTo(
-      centerX + notchRadius, 0,
-      centerX + notchRadius + 18, 0,
-    );
-
-    path.lineTo(w, 0);
-    path.lineTo(w, h);
-    path.lineTo(0, h);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(covariant _NotchClipper old) =>
+      old.archHeight != archHeight ||
+      old.archWidth != archWidth ||
+      old.cornerRadius != cornerRadius;
 }
