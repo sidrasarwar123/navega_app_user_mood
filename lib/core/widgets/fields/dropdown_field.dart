@@ -3,7 +3,6 @@ import 'package:navega_app/core/constants/app_color.dart';
 import 'package:navega_app/core/constants/app_spacing.dart';
 import 'package:navega_app/core/constants/textstyle.dart';
 
-
 class DropdownSelectField extends StatelessWidget {
   final String hintText;
   final String? value;
@@ -66,12 +65,18 @@ class DropdownSelectField extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              value ?? hintText,
-              style: value == null
-                  ? AppTextStyles.fieldHint
-                  : AppTextStyles.label.copyWith(fontWeight: FontWeight.w400),
+            // Text ko Expanded mein wrap kiya taake yeh overflow na kare
+            Expanded(
+              child: Text(
+                value ?? hintText,
+                overflow: TextOverflow.ellipsis, // agar text lamba ho to "..." dikhega
+                maxLines: 1,
+                style: value == null
+                    ? AppTextStyles.fieldHint
+                    : AppTextStyles.label.copyWith(fontWeight: FontWeight.w400),
+              ),
             ),
+            const SizedBox(width: 6), // icon aur text ke darmiyan thori spacing
             const Icon(
               Icons.chevron_right,
               size: 18,

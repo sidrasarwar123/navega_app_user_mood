@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-static const Color primaryBlue = Color(0xFF8CCBFA);
-static const Color primaryBlueDark = Color(0xFF5BAFEE);
+static const Color primaryBlue = Color(0xFF58C2FE);
+static const Color primaryBlueDark = Color(0xFF58C2FE);
 
   static const Color textDark = Color(0xFF1C1C1E);
   static const Color textGrey = Color(0xFF8E8E93);
@@ -33,7 +33,7 @@ static const Color primaryBlueDark = Color(0xFF5BAFEE);
 
   // Border
   static const Color border = Color(0xFFBDBDBD);
-  static const Color focusedBorder = primaryBlue;
+  static const Color focusedBorder = Color(0xFF8FD3FE);
 
   // Other
 
@@ -42,6 +42,15 @@ static const Color primaryBlueDark = Color(0xFF5BAFEE);
   static const Color successGreen = Color(0xFF34C759);
   static const Color success = Color(0xFF34A853);
 
-  
-  
+
+  static const Color textPrimary = Color(0xFF191A1C);
+  static const Color textSecondary = Color(0xFF000000);
+
+  // static const Color border = Color(0xFFE0E0E0);
+  // static const Color divider = Color(0xFFE0E0E0);
+  // static const Color splashGradientTop = Color(0xFF8FD3FE);
 }
+
+  
+  
+

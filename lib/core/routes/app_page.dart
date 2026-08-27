@@ -7,6 +7,8 @@ import 'package:navega_app/Feature/auth/views/sign_up.dart';
 import 'package:navega_app/Feature/auth/views/splash_screen.dart';
 import 'package:navega_app/Feature/client_mood/views/about_license_screen.dart';
 import 'package:navega_app/Feature/client_mood/views/boat_detail_screen.dart';
+import 'package:navega_app/Feature/client_mood/views/chat_detail_screen.dart';
+import 'package:navega_app/Feature/client_mood/views/chat_screen.dart';
 import 'package:navega_app/Feature/client_mood/views/favourite_list_screen.dart';
 import 'package:navega_app/Feature/client_mood/views/filter_screen.dart';
 import 'package:navega_app/Feature/client_mood/views/favorite_screen.dart';
@@ -85,6 +87,20 @@ class AppPages {
       page: ()=>const FavoriteListScreen()),
       GetPage(name: Routes.paymentsuccessfull,
        page: ()=>const PaymentSuccessfulScreen(),
-       )
+       ),
+        GetPage(name: Routes.chat,
+       page: ()=>const  ChatScreen(),
+       ),
+      GetPage(
+  name: Routes.chatdetail,
+  page: () {
+    final args = Get.arguments as Map<String, dynamic>? ?? {};
+    return ChatDetailScreen(
+      name: args['name'] as String? ?? '',
+      status: args['status'] as String? ?? 'Active now',
+      avatarPath: args['avatarPath'] as String?,
+    );
+  },
+),
   ];
 }

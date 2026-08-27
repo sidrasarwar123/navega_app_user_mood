@@ -239,6 +239,10 @@ final List<BoatListing> _mostViewedBoats = [
     bottomNavigationBar: HomeBottomNavBar(
   currentIndex: _navIndex,
       onTap: (index) {
+        if (index == 1) {
+          Get.toNamed(Routes.chat);
+          return;
+        }
         if (index == 2) {
           Get.toNamed(Routes.favorites);
           return;

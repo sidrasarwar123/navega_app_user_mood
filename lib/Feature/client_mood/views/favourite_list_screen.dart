@@ -116,6 +116,10 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
        bottomNavigationBar: HomeBottomNavBar(
         currentIndex: 2,
         onTap: (index) {
+          if (index == 1) {
+            Get.toNamed(Routes.chat);
+            return;
+          }
           if (index == 0) {
             Get.offNamed(Routes.home);
           }

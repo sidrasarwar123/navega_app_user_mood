@@ -17,5 +17,7 @@ abstract class Routes {
  static const String favourite='/favoutite';
  static const String favouriteList='/favoutiteList';
  static const String paymentsuccessfull='/paymentsuccessfull';
+ static const String chat='/chat';
+ static const String chatdetail='/chatdetail';
 
 }
