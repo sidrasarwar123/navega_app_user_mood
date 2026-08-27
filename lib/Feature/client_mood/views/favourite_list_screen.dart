@@ -8,6 +8,7 @@ import 'package:navega_app/core/constants/app_spacing.dart';
 
 import 'package:navega_app/core/constants/textstyle.dart';
 import 'package:navega_app/core/routes/app_routes.dart';
+import 'package:navega_app/core/widgets/button/chat_bubble_button.dart';
 
 class FavoriteListScreen extends StatefulWidget {
   const FavoriteListScreen({super.key});
@@ -104,7 +105,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
       Positioned(
         right: AppSpacing.screenHorizontal,
         bottom: 10,
-        child: _ChatBubbleButton(
+        child: ChatBubbleButton(
           onTap: () {},
         ),
       ),
@@ -127,37 +128,4 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
   }
 
  
-}
-class _ChatBubbleButton extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  const _ChatBubbleButton({this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      customBorder: const CircleBorder(),
-      child: Container(
-        height: 46,
-        width: 46,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.primaryBlue,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryBlueDark.withValues(alpha: 0.4),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: const Icon(
-          Icons.chat_bubble_outline_rounded,
-          color: AppColors.white,
-          size: 20,
-        ),
-      ),
-    );
-  }
 }

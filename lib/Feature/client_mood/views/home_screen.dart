@@ -15,6 +15,7 @@ import 'package:navega_app/core/constants/app_spacing.dart';
 import 'package:navega_app/core/constants/textstyle.dart';
 
 import 'package:navega_app/core/routes/app_routes.dart';
+import 'package:navega_app/core/widgets/button/chat_bubble_button.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -230,7 +231,7 @@ final List<BoatListing> _mostViewedBoats = [
             Positioned(
               right: AppSpacing.screenHorizontal,
               bottom: 96,
-              child: _ChatBubbleButton(onTap: () {}),
+              child: ChatBubbleButton(onTap: () {}),
             ),
           ],
         ),
@@ -409,40 +410,7 @@ class _SearchBar extends StatelessWidget {
   }
 }
 
-/// Small floating circular chat button.
-class _ChatBubbleButton extends StatelessWidget {
-  final VoidCallback? onTap;
 
-  const _ChatBubbleButton({this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      customBorder: const CircleBorder(),
-      child: Container(
-        height: 46,
-        width: 46,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.primaryBlue,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryBlueDark.withValues(alpha: 0.4),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: const Icon(
-          Icons.chat_bubble_outline_rounded,
-          color: AppColors.white,
-          size: 20,
-        ),
-      ),
-    );
-  }
-}
 
 
 
