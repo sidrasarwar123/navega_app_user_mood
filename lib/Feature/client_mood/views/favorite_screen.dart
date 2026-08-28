@@ -23,7 +23,7 @@ class FavoriteScreen extends StatelessWidget {
         'image': 'assets/boat 2.png',
       'category': 'Crossover · 6 mascotas',
       'price': '200 US\$',
-      'unit': '/dia',
+      'unit': '/dia', 
       'hourly': '5X per hour',
       'daily': '5Y per day',
       'name': 'Bacca di Magna 2021',
